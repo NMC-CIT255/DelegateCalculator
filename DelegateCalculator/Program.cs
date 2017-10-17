@@ -18,6 +18,9 @@ namespace DelegateCalculator
             DisplayClosingScreen();
         }
 
+        /// <summary>
+        /// manage the application loop
+        /// </summary>
         static void ManageApplicationLoop()
         {
             MathOperation operation;
