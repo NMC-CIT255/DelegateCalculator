@@ -107,10 +107,7 @@ namespace DelegateCalculator
         {
             Dictionary<MyMath.Operation, MathOperation> operationsDictionary = new Dictionary<MyMath.Operation, MathOperation>
             {
-                {MyMath.Operation.ADD, MyMath.Add},
-                {MyMath.Operation.SUBTRACT, MyMath.Subtract},
-                {MyMath.Operation.MULTIPLY, MyMath.Multiply},
-                {MyMath.Operation.DIVIDE, MyMath.Divide}
+                {MyMath.Operation.ADD, MyMath.Add}
             };
 
             return operationsDictionary;
@@ -268,6 +265,7 @@ namespace DelegateCalculator
                 //
                 // list all operations in the dictionary
                 //
+                Console.Write(" | ");
                 foreach (KeyValuePair<MyMath.Operation, MathOperation> operationName in operationsDictionary)
                 {
                         Console.Write(operationName.Key + " | ");

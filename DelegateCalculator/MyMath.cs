@@ -44,10 +44,5 @@ namespace DelegateCalculator
         {
             return Math.Pow(number1, number2);
         }
-
-        public static double None(double number1, double number2)
-        {
-            return -9999;
-        }
     }
 }
