@@ -25,57 +25,16 @@ namespace DelegateCalculator
         {
             MathOperation operation;
             double operand1, operand2;
-            bool exit = false;
 
             Dictionary<MyMath.Operation, MathOperation> operationsDictionary = new Dictionary<MyMath.Operation, MathOperation>();
+
             operationsDictionary = SetupOperations();
 
-            do
-            {
-                operation = DisplayGetOperation(operationsDictionary);
-                operand1 = DisplayGetOperand(1);
-                operand2 = DisplayGetOperand(2);
+            operation = DisplayGetOperation(operationsDictionary);
+            operand1 = DisplayGetOperand(1);
+            operand2 = DisplayGetOperand(2);
 
-                DisplayCalculation(operation, operand1, operand2);
-
-                exit = DisplayExitAppPrompt();
-            } while (!exit);
-
-        }
-
-        /// <summary>
-        /// query the user to perform another calculation
-        /// </summary>
-        /// <returns>user response</returns>
-        static bool DisplayExitAppPrompt()
-        {
-            bool exit = false;
-            bool validResponse = false;
-
-            do
-            {
-                DisplayHeader("Continue");
-
-                Console.WriteLine();
-                Console.Write("Would you like to perform another calculation. (yes / no)?");
-                string userResponse = Console.ReadLine().ToUpper();
-
-                switch (userResponse)
-                {
-                    case "YES":
-                        exit = false;
-                        break;
-                    case "NO":
-                        exit = true;
-                        break;
-                    default:
-                        Console.WriteLine("Please respond with a \"yes\" or \"no\"");
-                        DisplayContinuePrompt();
-                        break;
-                }
-            } while (validResponse);
-
-            return exit;
+            DisplayCalculation(operation, operand1, operand2);
         }
 
         /// <summary>
@@ -101,6 +60,8 @@ namespace DelegateCalculator
 
         /// <summary>
         /// build out the dictionary of math operations that will be available to the application
+        /// Note: All math operations do not need to be included using this pattern allowing you
+        ///       to limit functionality based on user or context.
         /// </summary>
         /// <returns>dictionary of operation enums and methods</returns>
         static Dictionary<MyMath.Operation, MathOperation> SetupOperations()
@@ -172,42 +133,11 @@ namespace DelegateCalculator
         {
             double operand;
 
-            do
-            {
-                DisplayHeader("Get Operand");
-                Console.Write($"Enter Operand {operandNumber}:");
-            } while (!ValidateDouble(Console.ReadLine(), out operand));
+            DisplayHeader("Get Operand");
+            Console.Write($"Enter Operand {operandNumber}:");
+            operand = double.Parse(Console.ReadLine());
 
             return operand;
-        }
-
-        /// <summary>
-        /// validate a string as a double
-        /// </summary>
-        /// <param name="userRepsonse">user input value</param>
-        /// <param name="operand">out variable if a valid double is input</param>
-        /// <returns>result of validation</returns>
-        static bool ValidateDouble(string userRepsonse, out double operand)
-        {
-            bool validOperand = false;
-
-            //
-            // if valid double set the return operand value
-            //
-            if (double.TryParse(userRepsonse, out operand))
-            {
-                validOperand = true;
-            }
-            else // provide user feedback for invalid response
-            {
-                Console.WriteLine();
-                Console.WriteLine("Please try again and only enter a single number.");
-                Console.WriteLine();
-                Console.WriteLine("Press any key to continue.");
-                Console.ReadKey();
-            }
-
-            return validOperand;
         }
 
         /// <summary>
@@ -268,7 +198,7 @@ namespace DelegateCalculator
                 Console.Write(" | ");
                 foreach (KeyValuePair<MyMath.Operation, MathOperation> operationName in operationsDictionary)
                 {
-                        Console.Write(operationName.Key + " | ");
+                    Console.Write(operationName.Key + " | ");
                 }
 
                 Console.WriteLine(Environment.NewLine);

@@ -268,6 +268,7 @@ namespace DelegateCalculator
                 //
                 // list all operations in the dictionary
                 //
+                Console.Write(" | ");
                 foreach (KeyValuePair<MyMath.Operation, MathOperation> operationName in operationsDictionary)
                 {
                         Console.Write(operationName.Key + " | ");

@@ -18,8 +18,6 @@ namespace DelegateCalculator
             POWER
         }
 
-
-
         public static double Add(double number1, double number2)
         {
             return number1 + number2;
