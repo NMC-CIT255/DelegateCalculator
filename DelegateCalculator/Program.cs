@@ -25,15 +25,53 @@ namespace DelegateCalculator
         {
             MathOperation operation;
             double operand1, operand2;
+            bool exit = false;
 
             Dictionary<MyMath.Operation, MathOperation> operationsDictionary = new Dictionary<MyMath.Operation, MathOperation>();
             operationsDictionary = SetupOperations();
 
-            operation = DisplayGetOperation(operationsDictionary);
-            operand1 = DisplayGetOperand(1);
-            operand2 = DisplayGetOperand(2);
+            do
+            {
+                operation = DisplayGetOperation(operationsDictionary);
+                operand1 = DisplayGetOperand(1);
+                operand2 = DisplayGetOperand(2);
 
-            DisplayCalculation(operation, operand1, operand2);
+                DisplayCalculation(operation, operand1, operand2);
+
+                exit = DisplayExitAppPrompt();
+            } while (!exit);
+
+        }
+
+        static bool DisplayExitAppPrompt()
+        {
+            bool exit = false;
+            bool validResponse = false;
+
+            do
+            {
+                DisplayHeader("Continue");
+
+                Console.WriteLine();
+                Console.Write("Would you like to perform another calculation. (yes / no)?");
+                string userResponse = Console.ReadLine().ToUpper();
+
+                switch (userResponse)
+                {
+                    case "YES":
+                        exit = false;
+                        break;
+                    case "NO":
+                        exit = true;
+                        break;
+                    default:
+                        Console.WriteLine("Please respond with a \"yes\" or \"no\"");
+                        DisplayContinuePrompt();
+                        break;
+                }
+            } while (validResponse);
+
+            return exit;
         }
 
         /// <summary>
@@ -222,13 +260,15 @@ namespace DelegateCalculator
                 Console.WriteLine();
                 Console.WriteLine("Please try again and enter an operation from the following list.");
                 Console.WriteLine();
-                foreach (MyMath.Operation operationName in Enum.GetValues(typeof(MyMath.Operation)))
+
+                //
+                // list all operations in the dictionary
+                //
+                foreach (KeyValuePair<MyMath.Operation, MathOperation> operationName in operationsDictionary)
                 {
-                    if (operationName != MyMath.Operation.NONE)
-                    {
-                        Console.Write(operationName + " | ");
-                    }
+                        Console.Write(operationName.Key + " | ");
                 }
+
                 Console.WriteLine(Environment.NewLine);
                 Console.WriteLine("Press any key to continue.");
                 Console.ReadKey();
